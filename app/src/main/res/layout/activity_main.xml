@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_frame"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/chose_page"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_add"
+        android:orientation="vertical"
+        tools:context=".MainActivity">
+
+        <TextView
+            android:layout_width="62dp"
+            android:layout_height="26.7dp"
+            android:layout_marginLeft="12.3dp"
+            android:layout_marginTop="16.7dp"
+            android:background="@drawable/bg_left_corner_icon"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/user_home"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="18dp"
+            android:src="@drawable/bg_user"/>
+
+
+        <android.support.v7.widget.CardView
+            android:layout_width="333.7dp"
+            android:layout_height="224dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="73.7dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp">
+
+            <com.qinlong275.android.picu.ui.widget.BannerLayout
+                android:id="@+id/banner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                app:autoPlayDuration="3000"
+                app:indicatorMargin="10dp"
+                app:indicatorPosition="centerBottom"
+                app:indicatorShape="oval"
+                app:indicatorSpace="3dp"
+                app:scrollDuration="1100"
+                app:selectedIndicatorColor="?attr/colorPrimary"
+                app:selectedIndicatorHeight="6dp"
+                app:selectedIndicatorWidth="6dp"
+                app:unSelectedIndicatorColor="#99ffffff"
+                app:unSelectedIndicatorHeight="6dp"
+                app:unSelectedIndicatorWidth="6dp"
+                />
+        </android.support.v7.widget.CardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@+id/icon_add"
+            android:layout_marginBottom="27dp"
+            android:textSize="18dp"
+            tools:text="制作你的PicU"
+            />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/icon_take_photo"
+            android:layout_width="57dp"
+            android:layout_height="57dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="57.7dp"
+            android:src="@drawable/btn_add_camera"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/icon_album"
+            android:layout_width="57dp"
+            android:layout_height="57dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="57.7dp"
+            android:src="@drawable/btn_add_album"/>
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/icon_add"
+            android:layout_width="57dp"
+            android:layout_height="57dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="57.7dp"
+            android:src="@drawable/btn_add"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:visibility="gone"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/produce_page"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/top_bar"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="#000000">
+
+            <Button
+                android:id="@+id/produce_close"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="6dp"
+                android:background="@drawable/ic_action_delete"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="添加 PicU"
+                android:textSize="20dp"/>
+
+            <Button
+                android:id="@+id/produce_text_ok"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="6dp"
+                android:visibility="invisible"
+                android:background="@drawable/ic_action_ok"/>
+        </RelativeLayout>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            app:cardCornerRadius="12dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardElevation="4dp"
+            android:layout_above="@+id/base_bar"
+            android:layout_below="@+id/top_bar">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                app:cardCornerRadius="12dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardElevation="4dp">
+
+                <ImageView
+                    android:id="@+id/ic_picture"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:scaleType="centerInside"
+                    />
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_gravity="center">
+
+                    <EditText
+                        android:id="@+id/text_input"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:background="@null"
+                        android:gravity="center"
+                        android:hint="请输入你想留的话"
+                        android:maxWidth="180dp"
+                        android:textColor="@color/textColor4"
+                        android:textSize="25dp"
+                        android:visibility="invisible"/>
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+
+        </android.support.v7.widget.CardView>
+
+        <FrameLayout
+            android:id="@+id/base_bar"
+            android:layout_above="@+id/cut_line"
+            android:layout_width="match_parent"
+            android:layout_height="90dp">
+
+            <FrameLayout
+                android:id="@+id/color_change_bar"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:layout_above="@+id/cut_line">
+
+            </FrameLayout>
+            <RelativeLayout
+                android:id="@+id/text_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:layout_above="@+id/cut_line"
+                android:background="#000000">
+
+                <Button
+                    android:id="@+id/text_position"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="24dp"
+                    android:background="@drawable/ic_action_menu"
+                    android:visibility="gone"/>
+
+                <Button
+                    android:id="@+id/reset_mic"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="24dp"
+                    android:visibility="gone"
+                    android:background="@drawable/ic_action_reset"/>
+
+                <Button
+                    android:id="@+id/music_play"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/ic_action_play"
+                    android:visibility="gone"/>
+
+                <Button
+                    android:id="@+id/music_stop"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/ic_action_stop"
+                    android:visibility="gone"/>
+
+
+                <Button
+                    android:id="@+id/ic_record"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/ic_action_mic_normal"/>
+
+                <Button
+                    android:id="@+id/ic_chose_text_color"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:visibility="gone"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/ic_action_color"/>
+
+                <Button
+                    android:id="@+id/select_text_size"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="25dp"
+                    android:background="@drawable/ic_action_textsize"
+                    android:visibility="gone"/>
+
+                <Button
+                    android:id="@+id/mic_record_ok"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="25dp"
+                    android:visibility="gone"
+                    android:background="@drawable/ic_action_ok"/>
+            </RelativeLayout>
+
+        </FrameLayout>
+
+
+        <ImageView
+            android:id="@+id/cut_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_above="@+id/tools_chose"
+            android:background="#e3dfdf"/>
+
+        <RelativeLayout
+            android:id="@+id/tools_chose"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:background="#000000">
+
+            <Button
+                android:id="@+id/chose_mic"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="45dp"
+                android:background="@drawable/ic_action_mic_chose"/>
+
+            <Button
+                android:id="@+id/chose_text"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="45dp"
+                android:background="@drawable/ic_action_text_normal"/>
+        </RelativeLayout>
+
+        <com.qinlong275.android.picu.common.MicRecordingView
+            android:id="@+id/micView"
+            android:layout_centerInParent="true"
+            android:layout_alignParentBottom="true"
+            android:visibility="invisible"
+            android:layout_width="210dp"
+            android:layout_height="210dp" />
+
+    </RelativeLayout>
+</FrameLayout>

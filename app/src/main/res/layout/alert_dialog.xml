@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="400dp"
+    android:layout_height="300dp"
+    android:background="@drawable/bg_popupwindow">
+
+    <Button
+        android:id="@+id/alert_cancel"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:background="@drawable/btn_cancel"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="18dp"/>
+
+    <Button
+        android:id="@+id/alert_confirm"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:background="@drawable/btn_confirm2"
+        android:layout_margin="18dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

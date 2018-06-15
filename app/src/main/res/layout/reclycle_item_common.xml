@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
+
+        <ImageView
+            android:id="@+id/myreceivephoto"
+            android:layout_width="250sp"
+            android:layout_height="250sp"
+            android:background="@drawable/bg_pic">
+        </ImageView>
+
+        <ImageView
+            android:id="@+id/myreceivephotolock"
+            android:layout_width="40sp"
+            android:layout_height="40sp"
+            android:layout_alignEnd="@+id/myreceivephoto"
+            android:layout_alignParentTop="true"
+            android:layout_alignRight="@+id/myreceivephoto"
+            android:background="@drawable/icon_locked">
+        </ImageView>
+
+        <ImageView
+            android:id="@+id/myreceivephotowatermark"
+            android:layout_width="60sp"
+            android:layout_height="60sp"
+            android:layout_above="@+id/myreceivetiptime"
+            android:layout_alignEnd="@+id/myreceivephoto"
+            android:layout_alignRight="@+id/myreceivephoto"
+            android:background="@drawable/btn_watermark_voice">
+        </ImageView>
+
+        <TextView
+            android:id="@+id/myreceivetipname"
+            android:layout_width="125sp"
+            android:layout_height="20sp"
+            android:layout_alignLeft="@+id/myreceivephoto"
+            android:layout_alignStart="@+id/myreceivephoto"
+            android:layout_below="@+id/myreceivephoto"
+            android:text="from 孟美岐"
+            android:textColor="#000"/>
+
+        <TextView
+            android:id="@+id/myreceivetiptime"
+            android:layout_width="125sp"
+            android:layout_height="20sp"
+            android:layout_below="@+id/myreceivephoto"
+            android:layout_marginLeft="0dp"
+            android:layout_marginStart="0dp"
+            android:layout_toEndOf="@+id/myreceivetipname"
+            android:layout_toRightOf="@+id/myreceivetipname"
+            android:gravity="right"
+            android:text="2018.06.06"
+            android:textColor="#000"/>
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

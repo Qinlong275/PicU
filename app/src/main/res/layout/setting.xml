@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_settings">
+    <RelativeLayout
+        android:id="@+id/settingtopLayout"
+        android:layout_width="match_parent"
+        android:layout_height="60sp"
+        android:layout_alignParentTop="true">
+        <Button
+            android:id="@+id/settingback"
+            android:layout_width="25sp"
+            android:layout_height="25sp"
+            android:background="@drawable/btn_close"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/settingfeedback"
+        android:layout_width="350sp"
+        android:layout_height="60sp"
+        android:background="@drawable/btn_choose"
+        android:textSize="20sp"
+        android:text="      客官，有什么想说的呢？"
+        android:textColor="#ffffff"
+        android:gravity="center_vertical"
+        android:layout_marginTop="40dp"
+        android:layout_below="@+id/settingtopLayout"
+        android:layout_centerHorizontal="true" />
+    <Button
+        android:id="@+id/settingusersagreement"
+        android:layout_width="350sp"
+        android:layout_height="60sp"
+        android:background="@drawable/btn_choose"
+        android:textSize="20sp"
+        android:text="      用户协议"
+        android:textColor="#ffffff"
+        android:gravity="center_vertical"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/settingfeedback"
+        android:layout_centerHorizontal="true" />
+    <Button
+        android:id="@+id/settinglogout"
+        android:layout_width="200sp"
+        android:layout_height="70sp"
+        android:background="@drawable/btn_quit"
+        android:textSize="25sp"
+        android:text="退出登录"
+        android:textColor="#ffffff"
+        android:layout_marginBottom="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>
