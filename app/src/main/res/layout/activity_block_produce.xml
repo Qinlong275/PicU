@@ -76,8 +76,8 @@
 
     <android.support.v7.widget.CardView
         android:id="@+id/pic_card"
-        android:layout_width="320dp"
-        android:layout_height="350dp"
+        android:layout_width="310dp"
+        android:layout_height="320dp"
         android:layout_below="@+id/tit_show"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"

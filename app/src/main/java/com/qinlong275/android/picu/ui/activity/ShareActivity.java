@@ -1,8 +1,10 @@
 package com.qinlong275.android.picu.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -10,14 +12,17 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.qinlong275.android.picu.R;
+import com.tencent.connect.common.Constants;
+import com.tencent.tauth.Tencent;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ShareActivity extends AppCompatActivity {
+public class ShareActivity extends BaseActivity {
 
     @BindView(R.id.produce_close)
     Button mProduceClose;
@@ -69,8 +74,9 @@ public class ShareActivity extends AppCompatActivity {
                 //调用分享接口，分享给QQ好友
                 if (mCheckBox.isChecked()) {
                     //选择了阅后即焚
+                    share();
                 } else {
-
+                    share();
                 }
 
                 break;
@@ -81,11 +87,33 @@ public class ShareActivity extends AppCompatActivity {
                 break;
             case R.id.play_secret_voice:
                 //播放之前语音彩蛋设置的语音
+
                 break;
             case R.id.text_info:
                 break;
         }
     }
+
+    private void share(){
+        Intent intent=new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+//      intent.setPackage("com.sina.weibo");
+        intent.putExtra(Intent.EXTRA_SUBJECT, "分享");
+        intent.putExtra(Intent.EXTRA_TEXT, "你好 ");
+        intent.putExtra(Intent.EXTRA_TITLE, "我是标题");
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivityForResult(Intent.createChooser(intent, "请选择"),0);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 0) {
+            Toast.makeText(ShareActivity.this, "分享成功", Toast.LENGTH_LONG).show();
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
 
     @OnClick(R.id.text_show)
     public void onViewClicked() {

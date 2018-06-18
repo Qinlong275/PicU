@@ -1,4 +1,4 @@
-package com.qinlong275.android.picu.common;
+package com.qinlong275.android.picu.common.util;
 
 /**
  * Created by 或跃在渊i on 2018/6/12.

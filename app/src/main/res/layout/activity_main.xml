@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         android:background="@drawable/bg_add"
         android:orientation="vertical"
-        tools:context=".MainActivity">
+        tools:context=".ui.activity.MainActivity">
 
         <TextView
             android:layout_width="62dp"
@@ -24,11 +24,11 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/user_home"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignParentRight="true"
             android:layout_marginRight="16dp"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="16.7dp"
             android:src="@drawable/bg_user"/>
 
 
@@ -102,9 +102,9 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:visibility="gone"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/produce_page"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

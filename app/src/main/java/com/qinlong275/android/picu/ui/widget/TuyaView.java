@@ -46,17 +46,26 @@ public class TuyaView extends View{
     // 记录Path路径的对象
     private DrawPath dp;
     private int screenWidth, screenHeight;
-    private int currentColor = Color.BLUE;
-    private int currentSize = 5;
+    private int currentColor = Color.YELLOW;
+    private int currentSize = 3;
     private int currentStyle = 1;
     private int[] paintColor;//颜色集合
     private class DrawPath {
         public Path path;// 路径
         public Paint paint;// 画笔
     }
+    private File pictureSaveDir;
+    private String picSavePath;
     public TuyaView(Context context, int w, int h) {
         super(context);
         this.context = context;
+
+        picSavePath=Environment.getExternalStorageDirectory() +File.separator+"PicUfiles";
+        pictureSaveDir=new File(picSavePath);
+        if (!pictureSaveDir.exists()){
+            pictureSaveDir.mkdir();
+        }
+
         screenWidth = w;
         screenHeight = h;
         paintColor = new int[]{
@@ -204,12 +213,12 @@ public class TuyaView extends View{
         return true;
     }
     //保存到sd卡
-    public void saveToSDCard() {
+    public void saveToSDCard(String text) {
         //获得系统当前时间，并以该时间作为文件名
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
         Date curDate = new Date(System.currentTimeMillis());//获取当前时间
-        String str = formatter.format(curDate) + "paint.png";
-        File file = new File(Environment.getExternalStorageDirectory() +File.separator +str);
+        String str = formatter.format(curDate) + text+".png";
+        File file = new File(picSavePath +File.separator +str);
         if (!file.exists()){
             try {
                 file.createNewFile();

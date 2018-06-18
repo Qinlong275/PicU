@@ -19,7 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.qinlong275.android.picu.R;
-import com.qinlong275.android.picu.common.PicUtils;
+import com.qinlong275.android.picu.common.util.PicUtils;
 import com.qinlong275.android.picu.ui.widget.DrawView;
 import com.qinlong275.android.picu.ui.widget.TuyaView;
 
@@ -27,7 +27,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class BlockProduceActivity extends AppCompatActivity {
+public class BlockProduceActivity extends BaseActivity{
 
     @BindView(R.id.produce_close)
     Button mProduceClose;
@@ -91,7 +91,7 @@ public class BlockProduceActivity extends AppCompatActivity {
                 int screenHeight = 1200;
                 mTuyaView = new TuyaView(this, screenWidth, screenHeight);
                 mTuyaView.requestFocus();
-                mTuyaView.selectPaintSize(26);
+                mTuyaView.selectPaintSize(10);
                 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
                 params.addRule(RelativeLayout.CENTER_IN_PARENT);
                 mDrawImage.addView(mTuyaView, params);
@@ -103,7 +103,7 @@ public class BlockProduceActivity extends AppCompatActivity {
                 //点击出现圆圈，计算位置
                 RelativeLayout.LayoutParams param = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
                 param.addRule(RelativeLayout.CENTER_IN_PARENT);
-                mDrawView = new DrawView(BlockProduceActivity.this, null);
+                mDrawView = new DrawView(BlockProduceActivity.this, null,null);
                 mDrawCirViewCon.addView(mDrawView, param);
                 mDrawCirViewCon.setVisibility(View.VISIBLE);
                 mTitShow.setBackgroundResource(R.drawable.icon_click);
@@ -126,13 +126,16 @@ public class BlockProduceActivity extends AppCompatActivity {
                 break;
             case R.id.produce_text_ok:
                 //分享给朋友,根据类型存储交换相应的信息
+
+                //我制作的彩蛋完成，存到本地与远端
+
                 switch (choseState) {
                     case 1:
 
                         break;
                     case 2:
                         //保存画板图片
-                        mTuyaView.saveToSDCard();
+                        mTuyaView.saveToSDCard("mima");
                         break;
                     case 3:
 
@@ -193,4 +196,5 @@ public class BlockProduceActivity extends AppCompatActivity {
     public void onViewClicked() {
         mTuyaView.redo();
     }
+
 }

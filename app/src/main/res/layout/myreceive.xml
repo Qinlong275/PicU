@@ -55,6 +55,7 @@
         <android.support.design.widget.TabLayout
             android:id="@+id/tab_layout"
             android:layout_below="@+id/myreceiveuser"
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginRight="50dp"
@@ -66,8 +67,8 @@
 
         <android.support.v4.view.ViewPager
             android:id="@+id/view_pager"
-            android:layout_width="260dp"
-            android:layout_marginTop="20dp"
+            android:layout_width="216dp"
+            android:layout_marginTop="24.7dp"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/tab_layout"
             android:layout_height="match_parent">

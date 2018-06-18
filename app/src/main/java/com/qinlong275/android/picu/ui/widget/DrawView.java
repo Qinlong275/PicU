@@ -11,23 +11,29 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-public class DrawView extends View{
+public class DrawView extends View {
     //初始化圆的位置
 
     private int ringWidth=2;
     private int cirRadius=120;
     public float currentX=150;
     public float currentY=200;
+    private CirClickListener mCirClickListener;
+
+    private boolean isOrigin=true;
+
+    private boolean touchFirst=true;
 
     //创建画笔
     private Paint paint=new Paint();
 
     public DrawView(Context context) {
-        this(context,null);
+        this(context,null,null);
     }
 
-    public DrawView(Context context, @Nullable AttributeSet attrs) {
+    public DrawView(Context context, @Nullable AttributeSet attrs,CirClickListener listener) {
         this(context,null,0);
+        mCirClickListener=listener;
     }
 
     public DrawView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
@@ -42,21 +48,33 @@ public class DrawView extends View{
         paint.setStrokeWidth(15);
         paint.setColor(Color.GREEN);
         paint.setStyle(Paint.Style.STROKE);
-        canvas.drawCircle(currentX, currentY, cirRadius, paint);
-
+        if (!isOrigin){
+            canvas.drawCircle(currentX, currentY, cirRadius, paint);
+        }
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         //getX获得点击x位置，getY获得点击Y的位置
+        isOrigin=false;
+        touchFirst=!touchFirst;
         currentX= event.getX();
         currentY=event.getY();
 
         //得到点击的位置数据
 
         //重绘自身
-        invalidate();
+        if (touchFirst){
+            invalidate();
+            if (mCirClickListener!=null){
+                mCirClickListener.onClickCir((int) currentX,(int) currentY);
+            }
+        }
         //返回true自身消费
         return true;
+    }
+
+    public interface CirClickListener{
+        void onClickCir(int x,int y);
     }
 }

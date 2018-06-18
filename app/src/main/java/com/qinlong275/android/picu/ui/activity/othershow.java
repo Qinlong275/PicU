@@ -11,7 +11,7 @@ import com.qinlong275.android.picu.R;
  * Created by 或跃在渊i on 2018/6/13.
  */
 
-public class othershow extends AppCompatActivity {
+public class othershow extends BaseActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

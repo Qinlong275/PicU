@@ -11,4 +11,6 @@
     <color name="textColor5">#14e213</color>
     <color name="textColor6">#199bff</color>
     <color name="textColor7">#8c06ff</color>
+
+    <color name="md_white_1000">#FFFFFF</color>
 </resources>

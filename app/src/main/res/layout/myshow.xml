@@ -38,6 +38,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10sp"
             android:background="@drawable/bg_pic"/>
+
         <ImageView
             android:id="@+id/myshowwatermark"
             android:layout_width="60sp"

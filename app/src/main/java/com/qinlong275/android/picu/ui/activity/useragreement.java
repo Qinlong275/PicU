@@ -12,7 +12,7 @@ import com.qinlong275.android.picu.R;
  * Created by 或跃在渊i on 2018/6/11.
  */
 
-public class useragreement extends AppCompatActivity {
+public class useragreement extends BaseActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

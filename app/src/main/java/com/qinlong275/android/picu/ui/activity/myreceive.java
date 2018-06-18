@@ -1,30 +1,56 @@
 package com.qinlong275.android.picu.ui.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
-import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.qinlong275.android.picu.R;
+import com.qinlong275.android.picu.ui.adapter.ViewPagerAdapter;
 
-public class myreceive extends AppCompatActivity {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+public class myreceive extends BaseActivity {
     protected int now;
     Button back, setting, head, name, receive, post;
     ImageView picu;
+    @BindView(R.id.myreceiveback)
+    Button mMyreceiveback;
+    @BindView(R.id.myreceivehead)
+    ImageView mMyreceivehead;
+    @BindView(R.id.myreceivesetting)
+    Button mMyreceivesetting;
+    @BindView(R.id.tab_layout)
+    TabLayout mTabLayout;
+    @BindView(R.id.view_pager)
+    ViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.myreceive);
-        now = 1;
-        setListener();
+        ButterKnife.bind(this);
+//        now = 1;
+//        setListener();
+
+        initTablayout();
+    }
+
+    private void initTablayout() {
+
+
+        PagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        mViewPager.setOffscreenPageLimit(adapter.getCount());
+        mViewPager.setAdapter(adapter);
+        mTabLayout.setupWithViewPager(mViewPager);
     }
 
 //    protected void receiveInit() {
@@ -136,5 +162,17 @@ public class myreceive extends AppCompatActivity {
     protected void btnSetting() {
         Intent intent = new Intent(myreceive.this, SettingActivity.class);
         startActivity(intent);
+    }
+
+    @OnClick({R.id.myreceiveback, R.id.myreceivesetting})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.myreceiveback:
+                finish();
+                break;
+            case R.id.myreceivesetting:
+                btnSetting();
+                break;
+        }
     }
 }

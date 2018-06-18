@@ -23,7 +23,7 @@ import com.tencent.tauth.UiError;
 import org.json.JSONObject;
 
 
-public class SettingActivity extends AppCompatActivity {
+public class SettingActivity extends BaseActivity {
 
     protected Button back,feedback,useragreement,logout;
     private Tencent mTencent;

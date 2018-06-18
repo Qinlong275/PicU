@@ -1,4 +1,4 @@
-package com.qinlong275.android.picu.common;
+package com.qinlong275.android.picu.common.util;
 
 import android.content.Context;
 import android.graphics.Bitmap;

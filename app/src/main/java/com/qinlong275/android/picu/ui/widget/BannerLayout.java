@@ -196,11 +196,12 @@ public class BannerLayout extends RelativeLayout {
 
     public void initView(){
         //之后要改，根据传入的URL数决定
-        itemCount=3;
+        itemCount=2;
         List<View> views = new ArrayList<>();
-        views.add(getImageView(0,R.drawable.banana));
-        views.add(getImageView(0,R.drawable.cherry));
-        views.add(getImageView(0,R.drawable.watermelon));
+        views.add(getImageView(0,R.drawable.banner_1));
+        views.add(getImageView(1,R.drawable.banner_2));
+        views.add(getImageView(0,R.drawable.banner_1));
+        views.add(getImageView(1,R.drawable.banner_2));
         setViews(views);
     }
 

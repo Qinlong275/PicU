@@ -15,7 +15,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class BlockChoseActivity extends AppCompatActivity {
+public class BlockChoseActivity extends BaseActivity {
 
     @BindView(R.id.produce_close)
     Button mProduceClose;

@@ -1,11 +1,15 @@
-package com.qinlong275.android.picu;
+package com.qinlong275.android.picu.ui.activity;
 
 import android.Manifest;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipDescription;
+import android.content.ClipboardManager;
 import android.content.ContentUris;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -42,14 +46,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.czt.mp3recorder.MP3Recorder;
+import com.qinlong275.android.picu.MyApplication;
+import com.qinlong275.android.picu.R;
 import com.qinlong275.android.picu.common.ColorBarView;
 import com.qinlong275.android.picu.common.MicRecordingView;
-import com.qinlong275.android.picu.common.PicUtils;
-import com.qinlong275.android.picu.ui.activity.BlockChoseActivity;
-import com.qinlong275.android.picu.ui.activity.SettingActivity;
-import com.qinlong275.android.picu.ui.activity.myreceive;
+import com.qinlong275.android.picu.common.util.PicUtils;
 import com.qinlong275.android.picu.ui.widget.BannerLayout;
+
+import org.json.JSONException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -65,7 +71,7 @@ import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, ColorBarView.ColorChangeListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener, ColorBarView.ColorChangeListener {
 
     private static final int TAKE_PHOTO = 1;
     private static final int CHOOSE_PHOTO = 2;
@@ -79,7 +85,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private CircleImageView openAlbum;
     private View mChosePage;
     private View mProducePage;
-    private String picturePath;
 
     private Button mRecordButton;
     private Button mResetButton;
@@ -107,8 +112,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private boolean isProduce = false;
 
     private static final String[] permissionsArray = new String[]{
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.RECORD_AUDIO};
+            Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO,
+            Manifest.permission.INTERNET,Manifest.permission.READ_PHONE_STATE,Manifest.permission.ACCESS_WIFI_STATE,
+            Manifest.permission.INTERNET,Manifest.permission.READ_PHONE_STATE
+    };
     //还需申请的权限列表
     private List<String> permissionsList = new ArrayList<String>();
     //申请权限后的返回码
@@ -126,7 +133,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private Intent mIntent;     //彩蛋制作完成跳转
     private MP3Recorder mMP3Recorder;
-    String recordPath;
+    private String recordPath;
+    private String currentRecordPath;
+    private File recordSaveDir;
+    private String takePhotoSavepath;
+    private File takePhotoSaveDir;
+    private String currentPicPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,7 +147,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ButterKnife.bind(this);
         checkRequiredPermission(MainActivity.this);
 
-        picturePath = Environment.getExternalStorageDirectory() + File.separator + "outout_image.jpg";
+        try {
+            //是否缓存
+            Glide.with(this).load(MyApplication.getUserInfo().getString("figureurl_qq_2")).into(mUserHome);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        recordPath=Environment.getExternalStorageDirectory() +File.separator+"PicUfiles";
+        recordSaveDir=new File(recordPath);
+        if (!recordSaveDir.exists()){
+            recordSaveDir.mkdir();
+        }
+        takePhotoSavepath=Environment.getExternalStorageDirectory() +File.separator+"PicUfiles";
+        takePhotoSaveDir=new File(takePhotoSavepath);
+        if (!takePhotoSaveDir.exists()){
+            takePhotoSaveDir.mkdir();
+        }
+
         mChosePage = (View) findViewById(R.id.chose_page);
         mProducePage = (View) findViewById(R.id.produce_page);
         mBannerLayout = (BannerLayout) findViewById(R.id.banner);
@@ -206,8 +235,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         //获得系统当前时间，并以该时间作为文件名
                         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
                         Date curDate = new Date(System.currentTimeMillis());//获取当前时间
-                        recordPath = Environment.getExternalStorageDirectory() + File.separator + formatter.format(curDate) + ".mp3";
-                        File file = new File(recordPath);
+                        currentRecordPath=recordPath+ File.separator + formatter.format(curDate) + "mm.mp3";
+                        File file = new File(currentRecordPath);
                         mMP3Recorder = new MP3Recorder(file);
                         try {
                             mMP3Recorder.start();
@@ -269,13 +298,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     mRecordOkButton.setVisibility(View.VISIBLE);
                 }
             });
-            mMediaPlayer.setDataSource(recordPath);//指定音頻文件路徑
+            mMediaPlayer.setDataSource(currentRecordPath);//指定音頻文件路徑
             mMediaPlayer.prepare();//讓MediaPlayer進入準備狀態
             Log.d(TAG, "准备播放器");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+    //获取到系统粘贴板的信息
 
 
     @Override
@@ -290,7 +321,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     try {
                         //將拍攝的照片顯示出來
                         Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
-                        mImageView.setImageBitmap(PicUtils.rotateBitmap(bitmap, picturePath));
+                        mImageView.setImageBitmap(PicUtils.rotateBitmap(bitmap,currentPicPath ));
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
@@ -311,8 +342,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 }
                 break;
-            case R.id.music_stop:
-                mMediaPlayer.stop();
             default:
                 break;
         }
@@ -377,16 +406,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void open() {
         start = false;
         ObjectAnimator translationLeft = new ObjectAnimator().ofFloat(takePhoto, "translationX", 0, -220f);
-        translationLeft.setDuration(800);
+        translationLeft.setDuration(500);
         translationLeft.start();
         ObjectAnimator translationRight = new ObjectAnimator().ofFloat(openAlbum, "translationX", 0, 220f);
-        translationRight.setDuration(800);
+        translationRight.setDuration(500);
         translationRight.start();
         ObjectAnimator re = ObjectAnimator.ofFloat(addButton, "rotation", 0f, 90f);
         AnimatorSet animatorSetsuofang = new AnimatorSet();//组合动画
         ObjectAnimator scaleX = ObjectAnimator.ofFloat(addButton, "scaleX", 1, 0.8f);
         ObjectAnimator scaleY = ObjectAnimator.ofFloat(addButton, "scaleY", 1, 0.8f);
-        animatorSetsuofang.setDuration(800);
+        animatorSetsuofang.setDuration(500);
         animatorSetsuofang.play(scaleX).with(scaleY).with(re);
         animatorSetsuofang.start();
     }
@@ -395,16 +424,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void close() {
         start = true;
         ObjectAnimator translationLeft = new ObjectAnimator().ofFloat(takePhoto, "translationX", -220, 0f);
-        translationLeft.setDuration(800);
+        translationLeft.setDuration(500);
         translationLeft.start();
         ObjectAnimator translationRight = new ObjectAnimator().ofFloat(openAlbum, "translationX", 220, 0f);
-        translationRight.setDuration(800);
+        translationRight.setDuration(500);
         translationRight.start();
         ObjectAnimator re = ObjectAnimator.ofFloat(addButton, "rotation", 90f, 0f);
         AnimatorSet animatorSetsuofang = new AnimatorSet();//组合动画
         ObjectAnimator scaleX = ObjectAnimator.ofFloat(addButton, "scaleX", 0.8f, 1f);
         ObjectAnimator scaleY = ObjectAnimator.ofFloat(addButton, "scaleY", 0.8f, 1f);
-        animatorSetsuofang.setDuration(800);
+        animatorSetsuofang.setDuration(500);
         animatorSetsuofang.play(scaleX).with(scaleY).with(re);
         animatorSetsuofang.start();
     }
@@ -422,7 +451,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.icon_take_photo:
                 //創建File對象用於存儲拍照后的圖片
-                File outputImage = new File(Environment.getExternalStorageDirectory(), "outout_image.jpg");
+
+                //要保存本地，并上传远端的
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
+                Date curDate = new Date(System.currentTimeMillis());//获取当前时间
+                currentPicPath=takePhotoSavepath+File.separator+formatter.format(curDate)+"tph.jpg";
+                File outputImage = new File(currentPicPath);
                 try {
                     if (outputImage.exists()) {
                         outputImage.delete();
@@ -584,7 +618,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         WindowManager m = getWindowManager();
         Display d = m.getDefaultDisplay();  //为获取屏幕宽、高
         WindowManager.LayoutParams p = mDialog.getWindow().getAttributes();  //获取对话框当前的参数值
-        p.height = (int) (d.getHeight() * 0.3);   //高度设置为屏幕的0.3
+        p.height = (int) (d.getHeight() * 0.35);   //高度设置为屏幕的0.3
         p.width = (int) (d.getWidth() * 0.9);    //宽度设置为屏幕的0.5
         mDialog.getWindow().setAttributes(p);     //设置生效
 
